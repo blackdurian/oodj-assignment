@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.oodj'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.reflections:reflections:0.9.12'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.0'
+    
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,11 @@
+[ {
+  "id" : "53cebf9c-f7dd-45f8-9b10-c3a98d493674",
+  "name" : "Coffee Ice",
+  "price" : 1.5,
+  "rate" : 2
+}, {
+  "id" : "79c948a8-1903-4ed1-bd83-79aca04bf554",
+  "name" : "British Tea",
+  "price" : 0.5,
+  "rate" : 1
+} ]
