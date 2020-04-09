@@ -17,6 +17,7 @@ public class ProductController {
 
     public ProductController() {
         Menu.getInstance().clear();
+        Menu.getInstance().setHeader("Products");
         Menu.getInstance().addItem(new MenuItem("Search"
                 , new String[]{"s", "search"}
                 , new MenuEvent() {

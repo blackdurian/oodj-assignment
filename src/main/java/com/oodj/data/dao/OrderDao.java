@@ -4,6 +4,7 @@ import com.oodj.data.JsonUtil;
 import com.oodj.model.Order;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class OrderDao implements Dao<Order, String> {
@@ -60,6 +61,13 @@ public class OrderDao implements Dao<Order, String> {
         return jsonUtil.deserialize(PATH, Order.class);
     }
 
+
+    public List<Order> findByUser(String userId) {
+        return orderRepository.stream()
+                .filter(order -> order.getUserId().equals(userId))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public long count() {
         return orderRepository.size();
@@ -76,7 +84,20 @@ public class OrderDao implements Dao<Order, String> {
     }
 
 
+    public List<Order> search(String text) {
+        List<Order> result = new ArrayList<>();
+        for (Order order : orderRepository) {
+            if (order.toString().contains(text)) {
+                result.add(order);
+            }
+        }
+        return result;
+    }
 
-
-
+    public List<Order> search(String text, String userId) {
+        return orderRepository.stream()
+                .filter(order -> order.getUserId().equals(userId) && order.toString()
+                        .contains(text))
+                .collect(Collectors.toList());
+    }
 }

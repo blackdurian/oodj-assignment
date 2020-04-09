@@ -55,7 +55,10 @@ private String  successMessage = " Success!";
 
         Menu.getInstance().addItem(new MenuItem("Add to Cart"
                 , new String[]{"add", "add to cart"}
-                , () -> new ShoppingCartController().addItem(product)));
+                , () -> {
+            ShoppingCartController.addItem(product);
+            new ShoppingCartController();
+        }));
 
         Menu.getInstance().addItem(new MenuItem("Back"
                 , new String[]{"back"}
@@ -86,8 +89,6 @@ private String  successMessage = " Success!";
         }
         new ProductDetailController(product);
     }
-
-
 
     private void editRate(){
         System.out.println("New Rate:");

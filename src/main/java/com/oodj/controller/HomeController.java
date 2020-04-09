@@ -12,6 +12,7 @@ public class HomeController {
 
     public HomeController() {
         Menu.getInstance().clear();
+        Menu.getInstance().setHeader("Home Menu");
         Menu.getInstance().addItem(new MenuItem("Manage Products"
                 , new String[]{"product", "manage products"}
                 , new MenuEvent() {

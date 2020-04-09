@@ -3,12 +3,9 @@ package com.oodj.controller;
 import com.oodj.Application;
 import com.oodj.data.dao.AdminDao;
 import com.oodj.data.dao.CustomerDao;
-import com.oodj.model.Admin;
 import com.oodj.model.User;
 import com.oodj.view.Menu;
-import com.oodj.view.MenuEvent;
 import com.oodj.view.MenuItem;
-import com.oodj.view.MenuRequest;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -19,6 +16,7 @@ public class LoginController {
 
     public LoginController() {
         Menu.getInstance().clear();
+        Menu.getInstance().setHeader("Welcome");
         Menu.getInstance().addItem(new MenuItem("Login"
                 , new String[]{"login", "log-in"}
                 , () -> login()));
@@ -39,9 +37,9 @@ public class LoginController {
 
     private void login() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("please enter your username");
+        System.out.println("Please enter your username :");
         String username = sc.nextLine();
-        System.out.println("please enter your password");
+        System.out.println("Please enter your password :");
         String password = sc.nextLine();
         //TODO: encrypted password
         User user = new AdminDao().authenticate(username, password); // find admin object by username and password
@@ -49,7 +47,7 @@ public class LoginController {
             user = new CustomerDao().authenticate(username, password); // find customer object by username and password
         }
         if (user == null) {
-            System.out.println("Incorrect username or password");
+            System.out.println(">Incorrect username or password");
         } else {
             Application.user = user;
             new HomeController();

@@ -2,16 +2,41 @@ package com.oodj.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Order {
 
     private String id;
     private Date orderDate;
-    private Admin admin;
+    private String userId;
     private List<CartItem> cartItems;
     private String remark;
-    private boolean hasComplete;
+
+    private Status status = Status.PROCESSING;
     private double totalPrice;
+
+    public Order() {
+    }
+
+    public Order(String id, Date orderDate, String userId,
+            List<CartItem> cartItems, double totalPrice) {
+        this.id = id;
+        this.orderDate = orderDate;
+        this.userId = userId;
+        this.cartItems = cartItems;
+        this.totalPrice = totalPrice;
+    }
+
+    public Order(String id, Date orderDate, String userId,
+            List<CartItem> cartItems, String remark, Status status, double totalPrice) {
+        this.id = id;
+        this.orderDate = orderDate;
+        this.userId = userId;
+        this.cartItems = cartItems;
+        this.remark = remark;
+        this.status = status;
+        this.totalPrice = totalPrice;
+    }
 
     public String getId() {
         return id;
@@ -21,12 +46,20 @@ public class Order {
         this.id = id;
     }
 
-    public Admin getAdmin() {
-        return admin;
+    public Date getOrderDate() {
+        return orderDate;
     }
 
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public List<CartItem> getCartItems() {
@@ -45,12 +78,12 @@ public class Order {
         this.remark = remark;
     }
 
-    public boolean isHasComplete() {
-        return hasComplete;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setHasComplete(boolean hasComplete) {
-        this.hasComplete = hasComplete;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public double getTotalPrice() {
@@ -61,18 +94,31 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
-        } else if (obj == null) {
-            return false;
-        } else if (obj instanceof Order) {
-            Order o = (Order) obj;
-            if ((o.getId() == null && id == null)
-                    || (o.getId().equals(id))) {
-                return true;
-            }
         }
-        return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Order order = (Order) o;
+        return id.equals(order.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return id +
+                " " + orderDate +
+                " " + userId +
+                " " + cartItems +
+                " " + remark +
+                " " + status +
+                " " + totalPrice;
     }
 }

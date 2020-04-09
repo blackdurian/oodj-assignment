@@ -13,7 +13,7 @@ public class ProductSearchController {
         Menu.getInstance().clear();
         for (Product product:products){
             Menu.getInstance().addItem(new MenuItem(
-                    product.getName()+"\t\t Price:"+ product.getPrice()
+                    product.getName() + "\t\t Price:\t" + product.getPrice()
                     , new String[]{product.getName()}
                     , new MenuEvent() {
                 @Override

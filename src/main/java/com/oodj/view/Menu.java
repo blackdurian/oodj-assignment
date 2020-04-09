@@ -2,14 +2,17 @@ package com.oodj.view;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
     private static List<MenuItem> items = new ArrayList<>();
+
+    private String header;
     private String topMessage;
   //  private static List<Class<?>> menus = new ArrayList<>();;
-
+  private static final String BREAK_LINE = "====================================================";
     private Menu(){
      //menus = findAnnotatedMenu();
     }
@@ -23,12 +26,12 @@ public class Menu {
     }
 
     public void display(){
-        topBreakLine();
+        printHeader();
         printTopMessage();
         printItems();
         String request = scanRequest().trim();
         //Todo request validation
-        breakLine();
+        //     breakLine();
         MenuEvent menuEvent = findMenuEventByKey(request);
         if (menuEvent!=null){
             menuEvent.execute();
@@ -39,8 +42,16 @@ public class Menu {
 
     }
 
-    public String getTopMessage() {
-        return topMessage;
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public void printHeader() {
+        int spaceNum = BREAK_LINE.length() / 2 - header.length() / 2;
+        String midText = String.join("", Collections.nCopies(spaceNum, " ")) + header;
+        System.out.println(BREAK_LINE);
+        System.out.println(midText);
+        System.out.println(BREAK_LINE);
     }
 
     public void setTopMessage(String topMessage) {
@@ -97,6 +108,7 @@ public class Menu {
     public void clear(){
         items.clear();
         topMessage = "";
+        header = "";
     }
 
 
@@ -122,13 +134,5 @@ public class Menu {
         return scanner. nextLine();
     }
 
-
-
-    public static void breakLine() {
-        System.out.println("----------------------------------------------------");
-    }
-    public static void topBreakLine(){
-        System.out.println("====================================================");
-    }
 
 }

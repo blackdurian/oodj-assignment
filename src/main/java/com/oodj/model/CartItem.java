@@ -7,15 +7,28 @@ public class CartItem {
    private String productID;
    private String productName;
    private int quantity;
+   private double unitPrice;
    private double subTotal;
 
    public CartItem(String orderID, String productID, String productName, int quantity,
-           double subTotal) {
+           double unitPrice, double subTotal) {
       this.orderID = orderID;
       this.productID = productID;
       this.productName = productName;
       this.quantity = quantity;
+      this.unitPrice = unitPrice;
       this.subTotal = subTotal;
+   }
+
+   public CartItem() {
+   }
+
+   public double getUnitPrice() {
+      return unitPrice;
+   }
+
+   public void setUnitPrice(double unitPrice) {
+      this.unitPrice = unitPrice;
    }
 
    public String getOrderID() {
@@ -75,4 +88,6 @@ public class CartItem {
    public int hashCode() {
       return Objects.hash(orderID, productID);
    }
+
+
 }
