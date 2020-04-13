@@ -45,9 +45,9 @@ public class CustomerDao implements Dao<Customer, String> {
     }
 
     @Override
-    public boolean exists(String id) {
+    public boolean exists(String username) {
         for (Customer customer : customerRepository){
-            if (customer.getId().equals(id)){
+            if (customer.getUsername().equals(username)) {
                 return true;
             }
         }
@@ -92,6 +92,5 @@ public class CustomerDao implements Dao<Customer, String> {
         }
         return null;
     }
-
 
 }

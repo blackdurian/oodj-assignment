@@ -24,7 +24,7 @@ public class ShoppingCartController {
 
     public ShoppingCartController() {
         Menu.getInstance().clear();
-
+        Menu.getInstance().setHeader("Shopping Cart");
         for (int i = 0; i < cartItems.size(); i++) {
             CartItem item = cartItems.get(i);
             String menu = String.format("%s\t\t\t%d\t\t\t%.02f"
@@ -34,9 +34,9 @@ public class ShoppingCartController {
 
             if (i == cartItems.size() - 1) {
                      menu = String.format("%s\t\t\t%d\t\t\t%.02f%n"
-                                     + "-----------------------------"
-                                     + "%n\t\t\t%s\t\t\t%.02f%n"
-                                     + "============================="
+                                     + "------------------------------"
+                                     + "%n\t\t\t\t%s\t\t\t%.02f%n"
+                                     + "=============================="
                              , item.getProductName()
                              , item.getQuantity()
                              , item.getSubTotal()

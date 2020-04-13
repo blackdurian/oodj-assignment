@@ -88,7 +88,7 @@ public class ProductDao implements Dao<Product, String> {
 
     public boolean nameExists(String name) {
         for (Product product : productRepository){
-            if (product.getId().equals(name)){
+            if (product.getName().equals(name)) {
                 return true;
             }
         }

@@ -10,7 +10,7 @@ public class Order {
     private Date orderDate;
     private String userId;
     private List<CartItem> cartItems;
-    private String remark;
+    private String remark = "";
 
     private Status status = Status.PROCESSING;
     private double totalPrice;

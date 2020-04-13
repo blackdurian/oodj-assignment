@@ -47,9 +47,9 @@ public class AdminDao implements Dao<Admin, String> {
     }
 
     @Override
-    public boolean exists(String id) {
+    public boolean exists(String username) {
         for (Admin admin : adminRepository){
-            if (admin.getId().equals(id)){
+            if (admin.getUsername().equals(username)) {
                 return true;
             }
         }
@@ -76,12 +76,6 @@ public class AdminDao implements Dao<Admin, String> {
         jsonUtil.serialize(adminRepository,PATH);
     }
 
-    public Admin getAdmin() {
-        System.out.println(adminRepository.toString());
-        System.out.println(adminRepository.getClass());
-        System.out.println(adminRepository.get(0));
-        return adminRepository.get(0);
-    }
 
 
     public Admin authenticate(String username, String password) {

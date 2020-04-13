@@ -71,10 +71,10 @@ public class OrderDetailController {
         String strDate = dateFormat.format(date);
         String currentRemark = order.getRemark();
 
-        System.out.println("Remark:" + currentRemark);
+        System.out.println(currentRemark + "\r\n Add Remark: ");
         String remark = sc.nextLine();
         if (!remark.trim().isEmpty()) {
-            remark = currentRemark + strDate + "\t" + remark + "\r\n";
+            remark = currentRemark + "\r\n" + strDate + "\t" + remark;
             order.setRemark(remark);
             orderDao.update(order);
         }
@@ -82,38 +82,36 @@ public class OrderDetailController {
     }
 
     private String generateDetailMessage() {
-        User user = null;
         AdminDao adminDao = new AdminDao();
-        if (adminDao.exists(order.getId())) {
-            user = adminDao.findOne(order.getId());
-        }
+        User user = adminDao.findOne(order.getUserId());
 
         CustomerDao customerDao = new CustomerDao();
-        if (customerDao.exists(order.getId())) {
-            user = customerDao.findOne(order.getId());
+        if (user == null) {
+            user = customerDao.findOne(order.getUserId());
         }
 
         // Generate String of order detail
         StringBuilder sb = new StringBuilder();
         //Display order id and status
         sb.append("Id:\t").append(order.getId())
-                .append("\tStatus: \t").append(order.getStatus());
+                .append("\r\n\tStatus: \t").append(order.getStatus());
         // Display buyer name and ID
         if (user != null) {
             sb.append("\r\nOrder By:\t").append(user.getName())
-                    .append("\t#").append(user.getId());
+                    .append("\t\t#").append(user.getId());
         }
         // Column Header
         sb.append("\r\nProduct Id\tName\tQty\tSubtotal\r\n");
         // Put all Cart Items in table view
         for (CartItem cartItem : order.getCartItems()) {
-            String row = cartItem.getProductID() + "\t"
-                    + cartItem.getProductName() + "\t"
-                    + cartItem.getQuantity() + "\t"
-                    + cartItem.getSubTotal();
+            String row = String.format("%s\t%s\t%d\t$ %.2f%n"
+                    , cartItem.getProductID()
+                    , cartItem.getProductName()
+                    , cartItem.getQuantity()
+                    , cartItem.getSubTotal());
             sb.append(row);
         }
-        sb.append("\r\n----------------------\r\n")
+        sb.append("----------------------\r\n")
                 .append("\t\t\tTotal:\t").append(order.getTotalPrice())
                 .append("\r\nRemark:\t").append(order.getRemark())
                 .append("\r\n");

@@ -11,6 +11,7 @@ public class ProductSearchController {
 
     public ProductSearchController(List<Product> products) {
         Menu.getInstance().clear();
+        Menu.getInstance().setHeader("Search Result");
         for (Product product:products){
             Menu.getInstance().addItem(new MenuItem(
                     product.getName() + "\t\t Price:\t" + product.getPrice()

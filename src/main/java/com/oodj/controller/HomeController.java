@@ -40,6 +40,14 @@ public class HomeController {
                     new CustomerController();
                 }
             }));
+            Menu.getInstance().addItem(new MenuItem("Manage Customers"
+                    , new String[]{"customer", "manage customer"}
+                    , new MenuEvent() {
+                @Override
+                public void execute() {
+                    new CustomerController();
+                }
+            }));
         }
 
         Menu.getInstance().addItem(new MenuItem("Shopping Cart"

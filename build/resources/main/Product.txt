@@ -8,4 +8,9 @@
   "name" : "British Tea",
   "price" : 0.5,
   "rate" : 1
+}, {
+  "id" : "c2ea2ba9-18eb-4c0e-b7af-dfdea0c7a00a",
+  "name" : "Burger",
+  "price" : 5.5,
+  "rate" : 4
 } ]

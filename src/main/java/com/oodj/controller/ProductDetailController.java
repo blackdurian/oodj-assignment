@@ -18,11 +18,8 @@ private String  successMessage = " Success!";
     public ProductDetailController(Product product) {
         this.product = product;
         Menu.getInstance().clear();
-        Menu.getInstance().setTopMessage(String.format("[%s]%n Id:\t%s%n Rate:\t%s%n Price:\t%.2f%n%n"
-                ,product.getName()
-                ,product.getId()
-                ,product.getRate()
-                ,product.getPrice()));
+        Menu.getInstance().setHeader("Product Detail");
+        Menu.getInstance().setTopMessage(getProductDetail());
         if (Application.user instanceof Admin) {
             Menu.getInstance().addItem(new MenuItem("Edit Name"
                     , new String[]{"edit name","update name"}
@@ -64,6 +61,14 @@ private String  successMessage = " Success!";
                 , new String[]{"back"}
                 , ProductController::new));
         Menu.getInstance().display();
+    }
+
+    private String getProductDetail() {
+        return String.format("[%s]%n Id:\t%s%n Rate:\t%s%n Price:\t%.2f%n%n"
+                , product.getName()
+                , product.getId()
+                , product.getRate()
+                , product.getPrice());
     }
 
     private void editPrice() {

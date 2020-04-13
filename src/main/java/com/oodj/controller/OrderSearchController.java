@@ -12,6 +12,7 @@ class OrderSearchController {
 
     OrderSearchController(List<Order> orders) {
         Menu.getInstance().clear();
+        Menu.getInstance().setHeader("Search Result");
         for (Order order : orders) {
             Date date = order.getOrderDate();
             Menu.getInstance().addItem(new MenuItem(
