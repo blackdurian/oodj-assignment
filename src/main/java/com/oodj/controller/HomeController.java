@@ -3,6 +3,7 @@ package com.oodj.controller;
 
 import com.oodj.Application;
 import com.oodj.model.Admin;
+import com.oodj.model.Customer;
 import com.oodj.view.Menu;
 import com.oodj.view.MenuEvent;
 import com.oodj.view.MenuItem;
@@ -13,14 +14,28 @@ public class HomeController {
     public HomeController() {
         Menu.getInstance().clear();
         Menu.getInstance().setHeader("Home Menu");
-        Menu.getInstance().addItem(new MenuItem("Manage Products"
-                , new String[]{"product", "manage products"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                new ProductController();
-            }
-        }));
+
+        if (Application.user instanceof Admin) {
+            Menu.getInstance().addItem(new MenuItem("Manage Products"
+                    , new String[]{"product", "manage products"}
+                    , new MenuEvent() {
+                @Override
+                public void execute() {
+                    new ProductController();
+                }
+            }));
+        }
+
+        if (Application.user instanceof Customer) {
+            Menu.getInstance().addItem(new MenuItem("Products"
+                    , new String[]{"product", "products"}
+                    , new MenuEvent() {
+                @Override
+                public void execute() {
+                    new ProductController();
+                }
+            }));
+        }
 
         Menu.getInstance().addItem(new MenuItem("Manage Orders"
                 , new String[]{"order", "manage orders"}

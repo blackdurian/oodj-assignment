@@ -94,25 +94,26 @@ public class OrderDetailController {
         StringBuilder sb = new StringBuilder();
         //Display order id and status
         sb.append("Id:\t").append(order.getId())
-                .append("\r\n\tStatus: \t").append(order.getStatus());
+                .append("\r\nStatus: \t").append(order.getStatus());
         // Display buyer name and ID
         if (user != null) {
             sb.append("\r\nOrder By:\t").append(user.getName())
                     .append("\t\t#").append(user.getId());
         }
         // Column Header
-        sb.append("\r\nProduct Id\tName\tQty\tSubtotal\r\n");
+        //TODO: formatting item table
+        sb.append("\r\nName\tQty\tSubtotal\r\n");
         // Put all Cart Items in table view
         for (CartItem cartItem : order.getCartItems()) {
-            String row = String.format("%s\t%s\t%d\t$ %.2f%n"
-                    , cartItem.getProductID()
+            String row = String.format("%s\t%d\t$ %.2f%n"
                     , cartItem.getProductName()
                     , cartItem.getQuantity()
                     , cartItem.getSubTotal());
             sb.append(row);
         }
+        String total = String.format("Total:\t%.2f", order.getTotalPrice());
         sb.append("----------------------\r\n")
-                .append("\t\t\tTotal:\t").append(order.getTotalPrice())
+                .append("\t\t\t").append(total)
                 .append("\r\nRemark:\t").append(order.getRemark())
                 .append("\r\n");
         return sb.toString();

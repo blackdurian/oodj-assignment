@@ -63,6 +63,7 @@ public class LoginController {
         }
     }
 
+    @SuppressWarnings("uncheck")
     private void register() {
         //TODO: register
         final String ADMIN_REGISTER_CODE = "0000";
@@ -103,7 +104,7 @@ public class LoginController {
         user.setName(name);
         user.setId(UUID.randomUUID().toString());
         dao.add(user);
-        System.out.println("Registered successfully. please login!");
+        System.out.println("Registered successfully, please login");
         /*        Admin admin = new AdminDao().getAdmin();
         System.out.println(admin.getName());*/
     }

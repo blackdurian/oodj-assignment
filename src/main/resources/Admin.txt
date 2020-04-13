@@ -13,4 +13,9 @@
   "name" : "Tom Hanks",
   "username" : "a",
   "password" : "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+}, {
+  "id" : "3fc4c291-b826-4be1-9bff-a48ca2393abf",
+  "name" : "Harry",
+  "username" : "admin",
+  "password" : "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
 } ]
