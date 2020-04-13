@@ -20,4 +20,19 @@
   "remark" : "",
   "status" : "PROCESSING",
   "totalPrice" : 6.5
+}, {
+  "id" : "b94ddf46-bc16-4a1c-9877-0728eb82d04d",
+  "orderDate" : 1586784116957,
+  "userId" : "141f09a7-6615-40a8-b054-9510f34e5f26",
+  "cartItems" : [ {
+    "orderID" : "b94ddf46-bc16-4a1c-9877-0728eb82d04d",
+    "productID" : "53cebf9c-f7dd-45f8-9b10-c3a98d493674",
+    "productName" : "Coffee Ice",
+    "quantity" : 2,
+    "unitPrice" : 1.5,
+    "subTotal" : 3.0
+  } ],
+  "remark" : "",
+  "status" : "PROCESSING",
+  "totalPrice" : 3.0
 } ]
