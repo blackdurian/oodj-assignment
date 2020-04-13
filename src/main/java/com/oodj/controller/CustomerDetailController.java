@@ -13,7 +13,4 @@ public class CustomerDetailController {
     }
 
 
-    private void add(){
-
-    }
 }
