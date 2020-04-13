@@ -8,4 +8,4 @@
   "name" : "asd",
   "username" : "x",
   "password" : "x"
-} ]
+}]

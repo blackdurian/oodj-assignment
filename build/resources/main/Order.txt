@@ -1,0 +1,23 @@
+[ {
+  "id" : "da1957a3-42cb-420c-b44f-e4248b13296c",
+  "orderDate" : 1586436437529,
+  "userId" : "aqw",
+  "cartItems" : [ {
+    "orderID" : "da1957a3-42cb-420c-b44f-e4248b13296c",
+    "productID" : "79c948a8-1903-4ed1-bd83-79aca04bf554",
+    "productName" : "British Tea",
+    "quantity" : 2,
+    "unitPrice" : 0.5,
+    "subTotal" : 1.0
+  }, {
+    "orderID" : "da1957a3-42cb-420c-b44f-e4248b13296c",
+    "productID" : "c2ea2ba9-18eb-4c0e-b7af-dfdea0c7a00a",
+    "productName" : "Burger",
+    "quantity" : 1,
+    "unitPrice" : 5.5,
+    "subTotal" : 5.5
+  } ],
+  "remark" : "",
+  "status" : "PROCESSING",
+  "totalPrice" : 6.5
+} ]
