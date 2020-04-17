@@ -105,6 +105,11 @@ public class Menu {
         items.add(menuItem);
     }
 
+
+    public void addItem(List<MenuItem> menuItem) {
+        items.addAll(menuItem);
+    }
+
     public void clear(){
         items.clear();
         topMessage = "";

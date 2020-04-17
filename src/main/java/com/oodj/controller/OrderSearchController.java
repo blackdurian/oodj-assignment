@@ -2,37 +2,36 @@ package com.oodj.controller;
 
 import com.oodj.model.Order;
 import com.oodj.view.Menu;
-import com.oodj.view.MenuEvent;
 import com.oodj.view.MenuItem;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-class OrderSearchController {
+public class OrderSearchController {
 
-    OrderSearchController(List<Order> orders) {
+    public OrderSearchController(List<Order> orders) {
         Menu.getInstance().clear();
         Menu.getInstance().setHeader("Search Result");
+        Menu.getInstance().addItem(mappingMenuItem(orders));
+        Menu.getInstance().addItem(new MenuItem("Back"
+                , new String[]{"b", "back"}
+                , OrderController::new));
+        Menu.getInstance().display();
+    }
+
+    private List<MenuItem> mappingMenuItem(List<Order> orders) {
+        List<MenuItem> results = new ArrayList<>();
         for (Order order : orders) {
             Date date = order.getOrderDate();
-            Menu.getInstance().addItem(new MenuItem(
+            results.add(new MenuItem(
                     String.format("%s\t\tDate: %td/%tm/%tY\t\tAmount: %.2f\t\t%s"
                             , order.getId()
                             , date, date, date
                             , order.getTotalPrice()
                             , order.getStatus())
                     , new String[]{order.getId()}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-                    new OrderDetailController(order);
-                }
-            }));
+                    , () -> new OrderDetailController(order)));
         }
-
-        Menu.getInstance().addItem(new MenuItem("Back"
-                , new String[]{"b", "back"}
-                , () -> new OrderController()));
-        Menu.getInstance().display();
+        return results;
     }
 }
