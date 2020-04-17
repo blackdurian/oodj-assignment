@@ -17,8 +17,8 @@
     "unitPrice" : 5.5,
     "subTotal" : 5.5
   } ],
-  "remark" : "",
-  "status" : "PROCESSING",
+  "remark" : "\r\n2020-32-13 09:32:28\tadd salt",
+  "status" : "DELIVERED",
   "totalPrice" : 6.5
 }, {
   "id" : "b94ddf46-bc16-4a1c-9877-0728eb82d04d",
