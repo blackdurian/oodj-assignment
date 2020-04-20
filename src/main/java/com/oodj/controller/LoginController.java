@@ -3,7 +3,6 @@ package com.oodj.controller;
 import com.oodj.Application;
 import com.oodj.data.dao.AdminDao;
 import com.oodj.data.dao.CustomerDao;
-import com.oodj.data.dao.Dao;
 import com.oodj.model.Admin;
 import com.oodj.model.Customer;
 import com.oodj.model.User;
@@ -18,40 +17,43 @@ import java.util.UUID;
 //@MenuRequest("login")
 public class LoginController {
 
+    private static final String ADMIN_REGISTER_CODE = "0000";
+    private Scanner sc = new Scanner(System.in);
+
     public LoginController() {
         Menu.getInstance().clear();
         Menu.getInstance().setHeader("Welcome");
         Menu.getInstance().addItem(new MenuItem("Login"
                 , new String[]{"login", "log-in"}
-                , () -> login()));
+                , this::login));
 
         Menu.getInstance().addItem(new MenuItem(
                 "Register"
                 , new String[]{"register", "sign-up"}
-                , () -> register()));
+                , this::register));
 
         Menu.getInstance().addItem(new MenuItem("Exit"
                 , new String[]{"exit", "close"}
-                , () -> {
-            System.out.println("Exit");
-            Application.exit();
-        }));
+                , this::close));
         Menu.getInstance().display();
     }
 
+    private void close() {
+        System.out.println("Exit");
+        Application.exit();
+    }
+
     private void login() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Please enter your username :");
         String username = sc.nextLine();
         System.out.println("Please enter your password :");
-        String password = sc.nextLine();
-        //TODO: encrypted password
-
-        User user; // find admin object by username and password
-        user = new AdminDao().authenticate(username, getSHA(password));
+        String password = getSHA(sc.nextLine());
+        User user;
+        // find admin object by username and password
+        user = new AdminDao().authenticate(username, password);
         if (user == null) {
-            user = new CustomerDao().authenticate(username,
-                    getSHA(password)); // find customer object by username and password
+            // find customer object by username and password
+            user = new CustomerDao().authenticate(username, password);
         }
         if (user != null) {
             Application.user = user;
@@ -63,52 +65,67 @@ public class LoginController {
         }
     }
 
-    @SuppressWarnings("uncheck")
     private void register() {
         //TODO: register
-        final String ADMIN_REGISTER_CODE = "0000";
-        Scanner sc = new Scanner(System.in);
         System.out.println("Please enter register type (admin/customer) :");
         String type = sc.nextLine();
-        Dao dao;
-        User user;
         if (type.trim().equalsIgnoreCase("admin")) {
             System.out.println("Please Enter Admin register code");
             String code = sc.nextLine();
             if (!code.equals(ADMIN_REGISTER_CODE)) {
                 return;
             }
-            dao = new AdminDao();
-            user = new Admin();
+            registerAdmin();
         } else if (type.trim().equalsIgnoreCase("customer")) {
-            dao = new CustomerDao();
-            user = new Customer();
+            registerCustomer();
         } else {
             System.out.println("Wrong input!");
-            return;
         }
+    }
+
+    private void registerCustomer() {
+        CustomerDao dao = new CustomerDao();
         System.out.println("Please enter username : ");
         String username = sc.nextLine();
         //TODO: validation
-        if (!dao.exists(username)) {
-            user.setUsername(username);
-        } else {
+        if (dao.exists(username)) {
             System.out.println("Username has already been taken");
-            return;
+            registerCustomer();
         }
         System.out.println("Please enter password : ");
-        String password = sc.nextLine();
-        user.setPassword(getSHA(password));
+        String password = getSHA(sc.nextLine());
         System.out.println("Please enter your name : ");
         String name = sc.nextLine();
-        user.setName(name);
-        user.setId(UUID.randomUUID().toString());
-        dao.add(user);
+        System.out.println("Please enter your IC Number : ");
+        String ic = sc.nextLine();
+        //TODO: IC Validation
+        System.out.println("Please enter your address : ");
+        String address = sc.nextLine();
+        //TODO: addr Validation
+        System.out.println("Please enter your contact number : ");
+        String contactNum = sc.nextLine();
+        //TODO: Contact num Validation
+        dao.add(new Customer(UUID.randomUUID().toString(), name, username, password, ic, address,
+                contactNum));
         System.out.println("Registered successfully, please login");
-        /*        Admin admin = new AdminDao().getAdmin();
-        System.out.println(admin.getName());*/
     }
 
+    private void registerAdmin() {
+        AdminDao dao = new AdminDao();
+        System.out.println("Please enter username : ");
+        String username = sc.nextLine();
+        //TODO: validation
+        if (dao.exists(username)) {
+            System.out.println("Username has already been taken");
+            registerAdmin();
+        }
+        System.out.println("Please enter password : ");
+        String password = getSHA(sc.nextLine());
+        System.out.println("Please enter your name : ");
+        String name = sc.nextLine();
+        dao.add(new Admin(UUID.randomUUID().toString(), name, username, password));
+        System.out.println("Registered successfully, please login");
+    }
 
     private String getSHA(String input) {
         try {

@@ -93,4 +93,31 @@ public class CustomerDao implements Dao<Customer, String> {
         return null;
     }
 
+    public boolean icNumExists(String icNum) {
+        for (Customer customer : customerRepository) {
+            if (customer.getIcNum().equals(icNum)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean contactNumExists(String contact) {
+        for (Customer customer : customerRepository) {
+            if (customer.getContactNum().equals(contact)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean nameExists(String name) {
+        for (Customer customer : customerRepository) {
+            if (customer.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

@@ -18,81 +18,44 @@ public class HomeController {
         if (Application.user instanceof Admin) {
             Menu.getInstance().addItem(new MenuItem("Manage Products"
                     , new String[]{"product", "manage products"}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-                    new ProductController();
-                }
-            }));
+                    , ProductController::new));
         }
 
         if (Application.user instanceof Customer) {
             Menu.getInstance().addItem(new MenuItem("Products"
                     , new String[]{"product", "products"}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-                    new ProductController();
-                }
-            }));
+                    , ProductController::new));
         }
 
         Menu.getInstance().addItem(new MenuItem("Manage Orders"
                 , new String[]{"order", "manage orders"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                new OrderController();
-            }
-        }));
+                , OrderController::new));
 
         if (Application.user instanceof Admin) {
             Menu.getInstance().addItem(new MenuItem("Manage Customers"
                     , new String[]{"customer", "manage customer"}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-                    new CustomerController();
-                }
-            }));
-            Menu.getInstance().addItem(new MenuItem("Manage Customers"
-                    , new String[]{"customer", "manage customer"}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-                    new CustomerController();
-                }
-            }));
+                    , CustomerController::new));
+
         }
 
         Menu.getInstance().addItem(new MenuItem("Shopping Cart"
                 , new String[]{"cart", "shopping cart"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                new ShoppingCartController();
-            }
-        }));
+                , ShoppingCartController::new));
 
         Menu.getInstance().addItem(new MenuItem("Logout"
                 , new String[]{"logout", "log-out"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                new LoginController();
-                Application.user = null;
-            }
+                , () -> {
+            new LoginController();
+            Application.user = null;
         }));
 
         Menu.getInstance().addItem(new MenuItem("Exit"
                 , new String[]{"exit", "close"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                System.out.println("Exit");
-                Application.exit();
-            }
+                , () -> {
+            System.out.println("Exit");
+            Application.exit();
         }));
+
         Menu.getInstance().display();
     }
 

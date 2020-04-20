@@ -14,6 +14,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
+import org.apache.commons.lang3.StringUtils;
 
 public class ShoppingCartController {
 
@@ -27,17 +28,17 @@ public class ShoppingCartController {
         Menu.getInstance().setHeader("Shopping Cart");
         for (int i = 0; i < cartItems.size(); i++) {
             CartItem item = cartItems.get(i);
-            String menu = String.format("%s\t\t\t%d\t\t\t%.02f"
-                    , item.getProductName()
+            String menu = String.format("%s\t%d\t\t\t%.02f"
+                    , StringUtils.rightPad(item.getProductName(), 20, " ")
                     , item.getQuantity()
                     , item.getSubTotal());
 
             if (i == cartItems.size() - 1) {
-                     menu = String.format("%s\t\t\t%d\t\t\t%.02f%n"
+                menu = String.format("%s\t%d\t\t\t%.02f%n"
                                      + "------------------------------"
                                      + "%n\t\t\t\t%s\t\t\t%.02f%n"
                                      + "=============================="
-                             , item.getProductName()
+                        , StringUtils.rightPad(item.getProductName(), 20, " ")
                              , item.getQuantity()
                              , item.getSubTotal()
                              , "Total price"
@@ -68,30 +69,15 @@ public class ShoppingCartController {
 
         Menu.getInstance().addItem(new MenuItem("Continue purchase"
                 , new String[]{"purchase","continue purchase","p"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                new ProductController();
-            }
-        }));
+                , ProductController::new));
 
         Menu.getInstance().addItem(new MenuItem("Proceed Order"
                 , new String[]{"proceed order", "order"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                order();
-            }
-        }));
+                , this::order));
 
         Menu.getInstance().addItem(new MenuItem("Back"
                 , new String[]{"back", "b"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                new HomeController();
-            }
-        }));
+                , HomeController::new));
         Menu.getInstance().display();
     }
 
@@ -138,7 +124,7 @@ public class ShoppingCartController {
         }
     }
 
-    public void editItem(String productId, int quantity) {
+    private void editItem(String productId, int quantity) {
         if (quantity == 0) {
             cartItems.removeIf(item -> item.getProductID().equals(productId));
         } else {
@@ -152,7 +138,7 @@ public class ShoppingCartController {
         }
     }
 
-    public Double getTotal() {
+    private Double getTotal() {
         return cartItems.stream().mapToDouble(CartItem::getSubTotal).sum();
     }
 

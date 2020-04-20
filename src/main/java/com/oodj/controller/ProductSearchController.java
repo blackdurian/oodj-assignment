@@ -6,6 +6,7 @@ import com.oodj.view.MenuEvent;
 import com.oodj.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 public class ProductSearchController {
 
@@ -23,7 +24,8 @@ public class ProductSearchController {
         List<MenuItem> results = new ArrayList<>();
         for (Product product : products) {
             results.add(new MenuItem(
-                    product.getName() + "\t\t Price:\t" + product.getPrice()
+                    StringUtils.rightPad(product.getName(), 30, " ") + " Price:\t" + product
+                            .getPrice()
                     , new String[]{product.getName()}
                     , () -> new ProductDetailController(product)));
         }

@@ -77,7 +77,6 @@ public class AdminDao implements Dao<Admin, String> {
     }
 
 
-
     public Admin authenticate(String username, String password) {
         for (Admin admin : adminRepository){
             if (admin.getUsername().equals(username)&&admin.getPassword().equals(password)){

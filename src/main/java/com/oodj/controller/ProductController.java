@@ -20,59 +20,41 @@ public class ProductController {
         Menu.getInstance().setHeader("Products");
         Menu.getInstance().addItem(new MenuItem("Search"
                 , new String[]{"s", "search"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                System.out.println("Search :");
-                String value = sc.nextLine();
-                if (!value.trim().isEmpty()){
-                    List<Product> products = productDao.search(value);
-                    if (products.size()>0){
-                        new ProductSearchController(products);
-                    }else {
-                        System.out.printf("Your Search - %s - did not match any products%n", value);
-                        Menu.getInstance().display();
-                    }
-                }else {
+                , () -> {
+            System.out.println("Search :");
+            String value = sc.nextLine();
+            if (!value.trim().isEmpty()) {
+                List<Product> products = productDao.search(value);
+                if (products.size() > 0) {
+                    new ProductSearchController(products);
+                } else {
+                    System.out.printf("Your Search - %s - did not match any products%n", value);
                     Menu.getInstance().display();
                 }
+            } else {
+                Menu.getInstance().display();
             }
         }));
-
         Menu.getInstance().addItem(new MenuItem("All Products"
                 , new String[]{"all", "all product"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                List<Product> products = productDao.findAll();
-                if (products.size()>0){
-                    new ProductSearchController(products);
-                }else {
-                    System.out.println("No available product.");
-                    Menu.getInstance().display();
-                }
+                , () -> {
+            List<Product> products = productDao.findAll();
+            if (products.size() > 0) {
+                new ProductSearchController(products);
+            } else {
+                System.out.println("No available product.");
+                Menu.getInstance().display();
             }
         }));
         if (Application.user instanceof Admin) {
             Menu.getInstance().addItem(new MenuItem("Add Product"
                     , new String[]{"add", "add product"}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-                    addProduct();
-                }
-            }));
+                    , this::addProduct));
 
         }
-
         Menu.getInstance().addItem(new MenuItem("Back"
                 , new String[]{"b", "back"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                new HomeController();
-            }
-        }));
+                , HomeController::new));
         Menu.getInstance().display();
 
     }

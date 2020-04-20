@@ -11,33 +11,31 @@ import com.oodj.model.Order;
 import com.oodj.model.Status;
 import com.oodj.model.User;
 import com.oodj.view.Menu;
-import com.oodj.view.MenuEvent;
 import com.oodj.view.MenuItem;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
+import org.apache.commons.lang3.StringUtils;
 
 public class OrderDetailController {
 
     private Order order;
     private OrderDao orderDao = new OrderDao();
     private Scanner sc = new Scanner(System.in);
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
 
     public OrderDetailController(Order order) {
         this.order = order;
         Menu.getInstance().clear();
         Menu.getInstance().setHeader("Order Details");
         Menu.getInstance().setTopMessage(generateDetailMessage());
+
         Menu.getInstance().addItem(new MenuItem("Add Remark"
                 , new String[]{"add remark", "remark"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                addRemark();
-            }
-        }));
+                , this::addRemark));
+
         if (Application.user instanceof Admin) {
             Menu.getInstance().addItem(new MenuItem("Mark as DELIVERED"
                     , new String[]{"delivered", "mark as delivered"}
@@ -51,12 +49,7 @@ public class OrderDetailController {
         if (Application.user instanceof Customer) {
             Menu.getInstance().addItem(new MenuItem("Cancel Order"
                     , new String[]{"cancel", "cancel order"}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-                    setCancelled();
-                }
-            }));
+                    , this::setCancelled));
         }
 
         Menu.getInstance().addItem(new MenuItem("Back"
@@ -67,10 +60,8 @@ public class OrderDetailController {
 
     private void addRemark() {
         Date date = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(date);
         String currentRemark = order.getRemark();
-
         System.out.println(currentRemark + "\r\n Add Remark: ");
         String remark = sc.nextLine();
         if (!remark.trim().isEmpty()) {
@@ -92,30 +83,38 @@ public class OrderDetailController {
 
         // Generate String of order detail
         StringBuilder sb = new StringBuilder();
-        //Display order id and status
-        sb.append("Id:\t").append(order.getId())
-                .append("\r\nStatus: \t").append(order.getStatus());
+        //Display order date, id and status
+        sb.append("Order Date:\t")
+                .append(dateFormat.format(order.getOrderDate()))
+                .append("\r\nOrder ID:\t\t")
+                .append(order.getId())
+                .append("\r\nStatus:\t\t\t")
+                .append(order.getStatus());
         // Display buyer name and ID
         if (user != null) {
-            sb.append("\r\nOrder By:\t").append(user.getName())
+            sb.append("\r\nOrder By:\t\t")
+                    .append(user.getName())
                     .append("\t\t#").append(user.getId());
         }
         // Column Header
-        //TODO: formatting item table
-        sb.append("\r\nName\tQty\tSubtotal\r\n");
-        // Put all Cart Items in table view
+        sb.append("\r\n\n")
+                .append(StringUtils.rightPad("Name", 30, " "))
+                .append(StringUtils.leftPad("Qty", 5, " "))
+                .append(StringUtils.leftPad("Subtotal($)", 13, " "))
+                .append("\r\n");
         for (CartItem cartItem : order.getCartItems()) {
-            String row = String.format("%s\t%d\t$ %.2f%n"
-                    , cartItem.getProductName()
-                    , cartItem.getQuantity()
-                    , cartItem.getSubTotal());
+            String row = StringUtils.rightPad(cartItem.getProductName(), 30, " ")
+                    + StringUtils.leftPad(Integer.toString(cartItem.getQuantity()), 5, " ")
+                    + StringUtils.leftPad(String.format("%.2f", cartItem.getSubTotal()), 11, " ")
+                    + "\r\n";
             sb.append(row);
         }
-        String total = String.format("Total:\t%.2f", order.getTotalPrice());
-        sb.append("----------------------\r\n")
-                .append("\t\t\t").append(total)
-                .append("\r\nRemark:\t").append(order.getRemark())
-                .append("\r\n");
+        String total = String.format("Total:    %.2f", order.getTotalPrice());
+        sb.append(StringUtils.leftPad("", 47, "-"))
+                .append("\r\n")
+                .append(StringUtils.leftPad(total, 46, " "))
+                .append("\r\nRemark:").append(order.getRemark())
+                .append("\r\n\r\n");
         return sb.toString();
     }
 

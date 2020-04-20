@@ -5,7 +5,6 @@ import com.oodj.data.dao.ProductDao;
 import com.oodj.model.Admin;
 import com.oodj.model.Product;
 import com.oodj.view.Menu;
-import com.oodj.view.MenuEvent;
 import com.oodj.view.MenuItem;
 import java.util.Scanner;
 
@@ -27,25 +26,17 @@ private String  successMessage = " Success!";
 
             Menu.getInstance().addItem(new MenuItem("Edit Price"
                     , new String[]{"edit price","update price"}
-                    , () -> editPrice()));
+                    , this::editPrice));
 
             Menu.getInstance().addItem(new MenuItem("Edit Rate"
                     , new String[]{"edit rate","update rate"}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-                    editRate();
-                }
-            }));
+                    , this::editRate));
 
             Menu.getInstance().addItem(new MenuItem("Delete Product"
                     , new String[]{"delete","delete product"}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-                    productDao.delete(product.getId());
-                    new ProductController();
-                }
+                    , () -> {
+                productDao.delete(product.getId());
+                new ProductController();
             }));
         }
 

@@ -15,62 +15,40 @@ public class CustomerController {
 
     public CustomerController() {
         Menu.getInstance().clear();
+        Menu.getInstance().setHeader("Manage Customer");
         Menu.getInstance().addItem(new MenuItem("Search"
                 , new String[]{"s", "search"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                System.out.println("Search :");
-                String value = sc.nextLine();
-                if (!value.trim().isEmpty()){
-                    List<Customer> customers = customerDao.search(value);
-                    if (customers.size()>0){
-                        new CustomerSearchController(customers);
-                    }else {
-                        System.out.printf("Your Search - %s - did not match any customers%n", value);
-                        Menu.getInstance().display();
-                    }
-                }else {
-                    Menu.getInstance().display();
-                }
-            }
-        }));
-
-        Menu.getInstance().addItem(new MenuItem("All Products"
-                , new String[]{"all", "all product"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                List<Customer> customers = customerDao.findAll();
-                if (customers.size()>0){
+                , () -> {
+            System.out.println("Search :");
+            String value = sc.nextLine();
+            if (!value.trim().isEmpty()) {
+                List<Customer> customers = customerDao.search(value);
+                if (customers.size() > 0) {
                     new CustomerSearchController(customers);
-                }else {
-                    System.out.println("No available customer.");
+                } else {
+                    System.out.printf("Your Search - %s - did not match any customers%n", value);
                     Menu.getInstance().display();
                 }
+            } else {
+                Menu.getInstance().display();
             }
         }));
 
-            Menu.getInstance().addItem(new MenuItem("Add Customer"
-                    , new String[]{"add", "add product"}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-               //TODO : add customer
-
-                }
-            }));
-
-
+        Menu.getInstance().addItem(new MenuItem("All Customer"
+                , new String[]{"all", "all customer"}
+                , () -> {
+            List<Customer> customers = customerDao.findAll();
+            if (customers.size() > 0) {
+                new CustomerSearchController(customers);
+            } else {
+                System.out.println("No available customer.");
+                Menu.getInstance().display();
+            }
+        }));
 
         Menu.getInstance().addItem(new MenuItem("Back"
                 , new String[]{"b", "back"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                new HomeController();
-            }
-        }));
+                , HomeController::new));
         Menu.getInstance().display();
 
     }
