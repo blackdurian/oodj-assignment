@@ -17,10 +17,6 @@ public class MenuItem {
         return menuEvent;
     }
 
-    public void setMenuEvent(MenuEvent menuEvent) {
-        this.menuEvent = menuEvent;
-    }
-
     public String getName() {
         return name;
     }
@@ -33,8 +29,5 @@ public class MenuItem {
         return keys;
     }
 
-    public void setKeys(String[] keys) {
-        this.keys = keys;
-    }
 
 }

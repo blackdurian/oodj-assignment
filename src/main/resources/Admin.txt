@@ -1,14 +1,4 @@
 [ {
-  "id" : "a123w",
-  "name" : "asd",
-  "username" : "asdad",
-  "password" : "ccvcvxcv"
-}, {
-  "id" : "aqw",
-  "name" : "asd",
-  "username" : "x",
-  "password" : "x"
-}, {
   "id" : "090a24be-2a54-4fb7-b5d9-a7831e98c67b",
   "name" : "Tom Hanks",
   "username" : "a",

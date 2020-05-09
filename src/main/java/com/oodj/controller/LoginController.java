@@ -16,7 +16,6 @@ import java.util.UUID;
 
 //@MenuRequest("login")
 public class LoginController {
-
     private static final String ADMIN_REGISTER_CODE = "0000";
     private Scanner sc = new Scanner(System.in);
 
@@ -83,7 +82,7 @@ public class LoginController {
         }
     }
 
-    private void registerCustomer() {
+    private void registerCustomer(){
         CustomerDao dao = new CustomerDao();
         System.out.println("Please enter username : ");
         String username = sc.nextLine();
@@ -105,12 +104,11 @@ public class LoginController {
         System.out.println("Please enter your contact number : ");
         String contactNum = sc.nextLine();
         //TODO: Contact num Validation
-        dao.add(new Customer(UUID.randomUUID().toString(), name, username, password, ic, address,
-                contactNum));
+        dao.add(new Customer(UUID.randomUUID().toString(),name,username,password,ic,address,contactNum));
         System.out.println("Registered successfully, please login");
     }
 
-    private void registerAdmin() {
+    private void registerAdmin(){
         AdminDao dao = new AdminDao();
         System.out.println("Please enter username : ");
         String username = sc.nextLine();
@@ -123,7 +121,7 @@ public class LoginController {
         String password = getSHA(sc.nextLine());
         System.out.println("Please enter your name : ");
         String name = sc.nextLine();
-        dao.add(new Admin(UUID.randomUUID().toString(), name, username, password));
+        dao.add(new Admin(UUID.randomUUID().toString(),name,username,password));
         System.out.println("Registered successfully, please login");
     }
 
@@ -134,11 +132,11 @@ public class LoginController {
             byte[] messageDigest = md.digest(input.getBytes()); // and return array of byte
             BigInteger no = new BigInteger(1,
                     messageDigest);  // Convert byte array into signum representation
-            String hashtext = no.toString(16);// Convert message digest into hex value
+            StringBuilder hashtext = new StringBuilder(no.toString(16));// Convert message digest into hex value
             while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
+                hashtext.insert(0, "0");
             }
-            return hashtext;
+            return hashtext.toString();
         }
         // For specifying wrong message digest algorithms
         catch (NoSuchAlgorithmException e) {
