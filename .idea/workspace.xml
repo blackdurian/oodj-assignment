@@ -212,7 +212,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -303,6 +302,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -526,6 +526,7 @@
       <workItem from="1587755051540" duration="1932000" />
       <workItem from="1588132259815" duration="732000" />
       <workItem from="1588154250090" duration="634000" />
+      <workItem from="1589007236081" duration="59000" />
     </task>
     <task id="LOCAL-00001" summary="Menu Header added&#10;shopping cart and order done">
       <created>1586433866685</created>
@@ -580,7 +581,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="365197000" />
+    <option name="totallyTimeSpent" value="365256000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -594,7 +595,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2062" height="1136" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18031968" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18231769" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
