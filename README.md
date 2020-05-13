@@ -5,7 +5,8 @@
     <dd>-	Java version 1.8</dd>
     <dd>-	Java SE Development Kit 8 is required to install </dd>
   <dt>Editor</dt>
-    <dd>-	Not specified, personally use IntelliJ idea.</dd>
+    <dd>-	Not specified,  should support Gradle plugin</dd>
+    <dd>-	recommend using IntelliJ idea or Eclipse.</dd>
   <dt>Repositories</dt>
     <dd>-	GitHub,   https://github.com/blackdurian/oodj-assignment.git</dd>
     <dd>-	do development on dev branches and pull origin/master frequently. resolve conflicts as soon as possible.</dd>
