@@ -8,9 +8,7 @@ import com.oodj.model.Customer;
 import com.oodj.model.User;
 import com.oodj.view.Menu;
 import com.oodj.view.MenuItem;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -43,7 +41,7 @@ public class LoginController {
         System.out.println("Please enter your username :");
         String username = sc.nextLine();
         System.out.println("Please enter your password :");
-        String password = getSHA(sc.nextLine());
+        String password = PasswordUtil.getSHA(sc.nextLine());
         User user;
         // find admin object by username and password
         user = new AdminDao().authenticate(username, password);
@@ -89,7 +87,7 @@ public class LoginController {
             registerCustomer();
         }
         System.out.println("Please enter password : ");
-        String password = getSHA(sc.nextLine());
+        String password = PasswordUtil.getSHA(sc.nextLine());
         System.out.println("Please enter your name : ");
         String name = sc.nextLine();
         System.out.println("Please enter your IC Number : ");
@@ -115,32 +113,14 @@ public class LoginController {
             registerAdmin();
         }
         System.out.println("Please enter password : ");
-        String password = getSHA(sc.nextLine());
+        String password = PasswordUtil.getSHA(sc.nextLine());
         System.out.println("Please enter your name : ");
         String name = sc.nextLine();
         dao.add(new Admin(UUID.randomUUID().toString(),name,username,password));
         System.out.println("Registered successfully, please login");
     }
 
-    private String getSHA(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance(
-                    "SHA-256");   // Static getInstance method is called with hashing SHA
-            byte[] messageDigest = md.digest(input.getBytes()); // and return array of byte
-            BigInteger no = new BigInteger(1,
-                    messageDigest);  // Convert byte array into signum representation
-            StringBuilder hashedText = new StringBuilder(no.toString(16));// Convert message digest into hex value
-            while (hashedText.length() < 32) {
-                hashedText.insert(0, "0");
-            }
-            return hashedText.toString();
-        }
-        // For specifying wrong message digest algorithms
-        catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+
 
 }
 

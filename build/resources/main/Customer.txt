@@ -22,4 +22,12 @@
   "icNum" : "51456612611",
   "contactNum" : "012931344",
   "address" : "32, new york street"
+}, {
+  "id" : "fa3039c8-f845-4e2a-b7ab-184a0afa79e2",
+  "name" : "hakey",
+  "username" : "hayek",
+  "password" : "ee6de2e51d1fd45e8e994ab9d1732c2cfcc93641752de80adc8ce74a319299b3",
+  "icNum" : "001254505640",
+  "contactNum" : "0183349223",
+  "address" : "No2,Jln 33, Pandan Indah,KL"
 } ]

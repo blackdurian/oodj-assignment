@@ -14,21 +14,21 @@ public class CustomerDetailController {
     private Customer customer;
     private CustomerDao customerDao = new CustomerDao();
     private Scanner sc = new Scanner(System.in);
-    private String successMessage = " Success!";
+    private final String successMessage = " Success!";
 
 
     public CustomerDetailController(Customer customer) {
         this.customer = customer;
         Menu.getInstance().clear();
-        Menu.getInstance().setHeader("Customer Detail");
+        Menu.getInstance().setHeader("Profile");
         Menu.getInstance().setTopMessage(getCustomerDetail());
-        if (Application.user instanceof Admin) {
+
             Menu.getInstance().addItem(new MenuItem("Edit Name"
                     , new String[]{"edit name", "update name"}
                     , this::editName));
 
-            Menu.getInstance().addItem(new MenuItem("Edit Password"
-                    , new String[]{"edit password", "update password"}
+            Menu.getInstance().addItem(new MenuItem("Change Password"
+                    , new String[]{"change password", "password"}
                     , this::editPassword)); //method reference
 
             Menu.getInstance().addItem(new MenuItem("Edit IC"
@@ -43,6 +43,8 @@ public class CustomerDetailController {
                     , new String[]{"edit contactNum", "update contactNum"}
                     , () -> editContactNum())); //lambda
 
+        if (Application.user instanceof Admin) {
+            Menu.getInstance().setHeader("Customer Detail");
             Menu.getInstance().addItem(new MenuItem("Delete Customer"
                     , new String[]{"delete", "delete customer"}
                     , new MenuEvent() { //most common
@@ -52,25 +54,34 @@ public class CustomerDetailController {
                     new CustomerController();
                 }
             }));
+            Menu.getInstance().addItem(new MenuItem("Back"
+                    , new String[]{"back"}
+                    , new MenuEvent() {
+                @Override
+                public void execute() {
+                    new CustomerController();
+                }
+            }));
         }
-        Menu.getInstance().addItem(new MenuItem("Back"
-                , new String[]{"back"}
-                , new MenuEvent() {
-            @Override
-            public void execute() {
-                new CustomerController();
-            }
-        }));
+
+        if (Application.user instanceof Customer) {
+            Menu.getInstance().addItem(new MenuItem("Back"
+                    , new String[]{"back"}
+                    , () -> {
+                        Application.user = this.customer;
+                        new HomeController();
+                    }));
+        }
+
         Menu.getInstance().display();
     }
 
     private String getCustomerDetail() {
-        return String.format("[%s]%n Id:\t\t%s%n Username:\t%s%n Password:\t%s%n" +
-                        " IC:\t\t%s%n Address:\t%s%n ContactNum:%s%n%n"
+        return String.format("Name:\t\t%s%n Id:\t\t\t%s%n Username:\t\t%s%n" +
+                        " IC number:\t%s%n Address:\t\t%s%n Contact Number:\t%s%n%n"
                 , customer.getName()
                 , customer.getId()
                 , customer.getUsername()
-                , customer.getPassword()
                 , customer.getIcNum()
                 , customer.getAddress()
                 , customer.getContactNum());
@@ -92,7 +103,7 @@ public class CustomerDetailController {
     private void editPassword() { //encap
         System.out.println("New Password:");
         String password = sc.nextLine();
-        customer.setPassword(password);
+        customer.setPassword(PasswordUtil.getSHA(password));
         customerDao.update(customer);
         System.out.println(successMessage);
         new CustomerDetailController(customer);

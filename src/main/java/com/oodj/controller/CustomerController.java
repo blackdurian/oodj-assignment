@@ -1,10 +1,8 @@
 package com.oodj.controller;
 
-import com.oodj.Application;
 import com.oodj.data.dao.CustomerDao;
 import com.oodj.model.Customer;
 import com.oodj.view.Menu;
-import com.oodj.view.MenuEvent;
 import com.oodj.view.MenuItem;
 import java.util.List;
 import java.util.Scanner;

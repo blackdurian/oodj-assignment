@@ -24,7 +24,7 @@
   "address" : "32, new york street"
 }, {
   "id" : "fa3039c8-f845-4e2a-b7ab-184a0afa79e2",
-  "name" : "hakey",
+  "name" : "hakay",
   "username" : "hayek",
   "password" : "ee6de2e51d1fd45e8e994ab9d1732c2cfcc93641752de80adc8ce74a319299b3",
   "icNum" : "001254505640",
