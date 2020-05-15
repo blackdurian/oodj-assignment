@@ -13,4 +13,9 @@
   "name" : "Burger",
   "price" : 5.5,
   "rate" : 4
+}, {
+  "id" : "e367f624-e61d-4468-8740-4c789fe6d704",
+  "name" : "Tissue Paper",
+  "price" : 0.5,
+  "rate" : 1
 } ]
