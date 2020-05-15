@@ -13,4 +13,14 @@
   "name" : "trump",
   "username" : "trump",
   "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"
+}, {
+  "id" : "20bb8875-53bc-488d-b271-2c48d5db5df4",
+  "name" : "John Snow",
+  "username" : "root",
+  "password" : "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2"
+}, {
+  "id" : "008e534c-ed3c-4f90-8d54-2152070f31f6",
+  "name" : "Keynes",
+  "username" : "Keynes",
+  "password" : "df5d4ce2f7859ba8890970a857c61f0536b8966645d5cdc6609a032c7e6f559b"
 } ]

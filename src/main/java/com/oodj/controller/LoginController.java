@@ -14,10 +14,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import java.util.UUID;
 
-//@MenuRequest("login")
 public class LoginController {
     private static final String ADMIN_REGISTER_CODE = "0000";
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     public LoginController() {
         Menu.getInstance().clear();
@@ -25,12 +24,10 @@ public class LoginController {
         Menu.getInstance().addItem(new MenuItem("Login"
                 , new String[]{"login", "log-in"}
                 , this::login));
-
         Menu.getInstance().addItem(new MenuItem(
                 "Register"
                 , new String[]{"register", "sign-up"}
                 , this::register));
-
         Menu.getInstance().addItem(new MenuItem("Exit"
                 , new String[]{"exit", "close"}
                 , this::close));
@@ -58,7 +55,6 @@ public class LoginController {
             Application.user = user;
             System.out.println("Welcome " + user.getName() + ", You are successfully logged in.");
             new HomeController();
-            // Menu.getInstance().respond("home");
         } else {
             System.out.println(">Incorrect username or password");
         }
@@ -69,9 +65,10 @@ public class LoginController {
         System.out.println("Please enter register type (admin/customer) :");
         String type = sc.nextLine();
         if (type.trim().equalsIgnoreCase("admin")) {
-            System.out.println("Please Enter Admin register code");
+            System.out.println("Please Enter admin register code");
             String code = sc.nextLine();
             if (!code.equals(ADMIN_REGISTER_CODE)) {
+                System.out.println("Wrong admin register code!");
                 return;
             }
             registerAdmin();
@@ -132,11 +129,11 @@ public class LoginController {
             byte[] messageDigest = md.digest(input.getBytes()); // and return array of byte
             BigInteger no = new BigInteger(1,
                     messageDigest);  // Convert byte array into signum representation
-            StringBuilder hashtext = new StringBuilder(no.toString(16));// Convert message digest into hex value
-            while (hashtext.length() < 32) {
-                hashtext.insert(0, "0");
+            StringBuilder hashedText = new StringBuilder(no.toString(16));// Convert message digest into hex value
+            while (hashedText.length() < 32) {
+                hashedText.insert(0, "0");
             }
-            return hashtext.toString();
+            return hashedText.toString();
         }
         // For specifying wrong message digest algorithms
         catch (NoSuchAlgorithmException e) {
@@ -144,21 +141,6 @@ public class LoginController {
             return null;
         }
     }
-
-    /*
-    @RequestMapping
-    private void login(List<MenuItem> items) {
-        items.add(new MenuItem(
-                "Login"
-                , new String[]{"1", "login", "log-in"}
-               ));
-    if (authenticate){
-        return"home";
-    }else {
-        return "";
-    }
-
-    }*/
 
 }
 

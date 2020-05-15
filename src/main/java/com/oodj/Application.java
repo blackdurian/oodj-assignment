@@ -2,6 +2,7 @@ package com.oodj;
 
 import com.oodj.controller.LoginController;
 import com.oodj.model.User;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Application {
