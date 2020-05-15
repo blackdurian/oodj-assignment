@@ -13,4 +13,14 @@
   "name" : "Burger",
   "price" : 5.5,
   "rate" : 4
+}, {
+  "id" : "e367f624-e61d-4468-8740-4c789fe6d704",
+  "name" : "Tissue Paper",
+  "price" : 0.5,
+  "rate" : 1
+}, {
+  "id" : "bf20b2a4-533a-4274-afa3-b227f076cf84",
+  "name" : "Lemon Tea",
+  "price" : 1.0,
+  "rate" : 4
 } ]

@@ -15,6 +15,8 @@ import java.util.UUID;
 public class LoginController {
     private static final String ADMIN_REGISTER_CODE = "0000";
     private final Scanner sc = new Scanner(System.in);
+    private final CustomerDao customerDao = new CustomerDao();
+    private final AdminDao adminDao = new AdminDao();
 
     public LoginController() {
         Menu.getInstance().clear();
@@ -44,10 +46,10 @@ public class LoginController {
         String password = PasswordUtil.getSHA(sc.nextLine());
         User user;
         // find admin object by username and password
-        user = new AdminDao().authenticate(username, password);
+        user = adminDao.authenticate(username, password);
         if (user == null) {
             // find customer object by username and password
-            user = new CustomerDao().authenticate(username, password);
+            user = customerDao.authenticate(username, password);
         }
         if (user != null) {
             Application.user = user;
@@ -59,7 +61,7 @@ public class LoginController {
     }
 
     private void register() {
-        //TODO: register
+        // register type selection
         System.out.println("Please enter register type (admin/customer) :");
         String type = sc.nextLine();
         if (type.trim().equalsIgnoreCase("admin")) {
@@ -77,12 +79,12 @@ public class LoginController {
         }
     }
 
-    private void registerCustomer(){
-        CustomerDao dao = new CustomerDao();
+    private void registerCustomer() {
+        //TODO: space validation
         System.out.println("Please enter username : ");
         String username = sc.nextLine();
-        //TODO: validation
-        if (dao.exists(username)) {
+        //username exist validation
+        if (customerDao.exists(username) || adminDao.exists(username)) {
             System.out.println("Username has already been taken");
             registerCustomer();
         }
@@ -99,16 +101,15 @@ public class LoginController {
         System.out.println("Please enter your contact number : ");
         String contactNum = sc.nextLine();
         //TODO: Contact num Validation
-        dao.add(new Customer(UUID.randomUUID().toString(),name,username,password,ic,address,contactNum));
+        customerDao.add(new Customer(UUID.randomUUID().toString(), name, username, password, ic, address, contactNum));
         System.out.println("Registered successfully, please login");
     }
 
     private void registerAdmin(){
-        AdminDao dao = new AdminDao();
+        //TODO: space validation
         System.out.println("Please enter username : ");
         String username = sc.nextLine();
-        //TODO: validation
-        if (dao.exists(username)) {
+        if (customerDao.exists(username) || adminDao.exists(username)) {
             System.out.println("Username has already been taken");
             registerAdmin();
         }
@@ -116,7 +117,7 @@ public class LoginController {
         String password = PasswordUtil.getSHA(sc.nextLine());
         System.out.println("Please enter your name : ");
         String name = sc.nextLine();
-        dao.add(new Admin(UUID.randomUUID().toString(),name,username,password));
+        adminDao.add(new Admin(UUID.randomUUID().toString(), name, username, password));
         System.out.println("Registered successfully, please login");
     }
 

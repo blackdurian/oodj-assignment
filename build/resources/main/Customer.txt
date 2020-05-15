@@ -1,33 +1,17 @@
 [ {
-  "id" : "141f09a7-6615-40a8-b054-9510f34e5f26",
-  "name" : "James",
-  "username" : "c",
-  "password" : "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6",
-  "icNum" : null,
-  "contactNum" : null,
-  "address" : null
-}, {
-  "id" : "7934bbc2-6e8e-4aed-9f3a-9840ce2a8410",
-  "name" : "weiquan",
-  "username" : "lo",
-  "password" : "9294ab38039f60d2ec53822fb46b52c663af7ea478f4d17bf43da44ede5e166c",
-  "icNum" : null,
-  "contactNum" : null,
-  "address" : null
-}, {
-  "id" : "f5843f5e-d122-4a4b-84e7-500eeff27bc2",
-  "name" : "obama",
+  "id" : "80cb9e56-9b06-4c22-858f-96bff88e61fe",
+  "name" : "Barack Obama",
   "username" : "obama",
-  "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-  "icNum" : "51456612611",
-  "contactNum" : "012931344",
-  "address" : "32, new york street"
+  "password" : "6c9d9f812df8c92abac66b3debe37580df358b6ecd807a5e28bd1a1bf7fdc484",
+  "icNum" : "25654413999",
+  "contactNum" : "56224332163",
+  "address" : "33, hesg street, San Jose"
 }, {
-  "id" : "fa3039c8-f845-4e2a-b7ab-184a0afa79e2",
-  "name" : "hakey",
-  "username" : "hayek",
-  "password" : "ee6de2e51d1fd45e8e994ab9d1732c2cfcc93641752de80adc8ce74a319299b3",
-  "icNum" : "001254505640",
-  "contactNum" : "0183349223",
-  "address" : "No2,Jln 33, Pandan Indah,KL"
+  "id" : "5cbd01e9-9b1e-4bbb-82bd-b7777ebcf66f",
+  "name" : "Tom Hank",
+  "username" : "tom",
+  "password" : "e1608f75c5d7813f3d4031cb30bfb786507d98137538ff8e128a6ff74e84e643",
+  "icNum" : "1234655221",
+  "contactNum" : "01255546322",
+  "address" : "1964, Fantages Way, Farmington"
 } ]

@@ -12,11 +12,13 @@ import com.oodj.model.Status;
 import com.oodj.model.User;
 import com.oodj.view.Menu;
 import com.oodj.view.MenuItem;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
+
 import org.apache.commons.lang3.StringUtils;
 
 public class OrderDetailController {
@@ -24,7 +26,7 @@ public class OrderDetailController {
     private Order order;
     private OrderDao orderDao = new OrderDao();
     private Scanner sc = new Scanner(System.in);
-    private DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
     public OrderDetailController(Order order) {
         this.order = order;
@@ -75,16 +77,15 @@ public class OrderDetailController {
     private String generateDetailMessage() {
         AdminDao adminDao = new AdminDao();
         User user = adminDao.findOne(order.getUserId());
-
         CustomerDao customerDao = new CustomerDao();
+        //Find customer with id, if not found in admin repo
         if (user == null) {
             user = customerDao.findOne(order.getUserId());
         }
-
         // Generate String of order detail
         StringBuilder sb = new StringBuilder();
         //Display order date, id and status
-        sb.append("Order Date:\t")
+        sb.append("Order Date:\t\t")
                 .append(dateFormat.format(order.getOrderDate()))
                 .append("\r\nOrder ID:\t\t")
                 .append(order.getId())
@@ -94,7 +95,11 @@ public class OrderDetailController {
         if (user != null) {
             sb.append("\r\nOrder By:\t\t")
                     .append(user.getName())
-                    .append("\t\t#").append(user.getId());
+                    .append("\r\n\t\t\t\t#").append(user.getId());
+        } else {
+            sb.append("\r\nOrder By:\t\t")
+                    .append("N/A")
+                    .append("\t\t").append(order.getUserId());
         }
         // Column Header
         sb.append("\r\n\n")
@@ -102,6 +107,7 @@ public class OrderDetailController {
                 .append(StringUtils.leftPad("Qty", 5, " "))
                 .append(StringUtils.leftPad("Subtotal($)", 13, " "))
                 .append("\r\n");
+        //Row values
         for (CartItem cartItem : order.getCartItems()) {
             String row = StringUtils.rightPad(cartItem.getProductName(), 30, " ")
                     + StringUtils.leftPad(Integer.toString(cartItem.getQuantity()), 5, " ")

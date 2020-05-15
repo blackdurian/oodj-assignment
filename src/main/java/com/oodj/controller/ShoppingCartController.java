@@ -21,7 +21,7 @@ public class ShoppingCartController {
     private static final int MAX_PRODUCT_QTY = 50;       // current cart CAPACITY
     private static List<CartItem> cartItems = new ArrayList<>();
     private static String orderId = "";
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     public ShoppingCartController() {
         Menu.getInstance().clear();

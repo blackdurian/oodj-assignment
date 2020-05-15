@@ -77,7 +77,7 @@ public class CustomerDao implements Dao<Customer, String> {
     public List<Customer> search(String value) {
         List<Customer>result = new ArrayList<>();
         for (Customer customer : customerRepository){
-            if (customer.getName().contains(value)){
+            if (customer.getName().toLowerCase().contains(value.toLowerCase())) {
                 result.add(customer);
             }
         }

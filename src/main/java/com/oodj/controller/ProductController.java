@@ -5,15 +5,14 @@ import com.oodj.data.dao.ProductDao;
 import com.oodj.model.Admin;
 import com.oodj.model.Product;
 import com.oodj.view.Menu;
-import com.oodj.view.MenuEvent;
 import com.oodj.view.MenuItem;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
 public class ProductController {
-    private Scanner sc = new Scanner(System.in);
-    private ProductDao productDao = new ProductDao();
+    private final Scanner sc = new Scanner(System.in);
+    private final ProductDao productDao = new ProductDao();
 
     public ProductController() {
         Menu.getInstance().clear();

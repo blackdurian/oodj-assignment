@@ -12,8 +12,8 @@ import java.util.Scanner;
 public class CustomerDetailController {
 
     private Customer customer;
-    private CustomerDao customerDao = new CustomerDao();
-    private Scanner sc = new Scanner(System.in);
+    private final CustomerDao customerDao = new CustomerDao();
+    private final Scanner sc = new Scanner(System.in);
     private final String successMessage = " Success!";
 
 
@@ -23,9 +23,9 @@ public class CustomerDetailController {
         Menu.getInstance().setHeader("Profile");
         Menu.getInstance().setTopMessage(getCustomerDetail());
 
-            Menu.getInstance().addItem(new MenuItem("Edit Name"
-                    , new String[]{"edit name", "update name"}
-                    , this::editName));
+        Menu.getInstance().addItem(new MenuItem("Edit Name"
+                , new String[]{"edit name", "update name"}
+                , this::editName));
 
             Menu.getInstance().addItem(new MenuItem("Change Password"
                     , new String[]{"change password", "password"}

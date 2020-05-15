@@ -2,7 +2,6 @@ package com.oodj.controller;
 
 import com.oodj.model.Product;
 import com.oodj.view.Menu;
-import com.oodj.view.MenuEvent;
 import com.oodj.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;

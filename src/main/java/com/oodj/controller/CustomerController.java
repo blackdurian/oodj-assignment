@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CustomerController {
-    private Scanner sc = new Scanner(System.in);
-    private CustomerDao customerDao = new CustomerDao();
+    private final Scanner sc = new Scanner(System.in);
+    private final CustomerDao customerDao = new CustomerDao();
 
     public CustomerController() {
         Menu.getInstance().clear();

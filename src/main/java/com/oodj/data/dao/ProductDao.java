@@ -78,7 +78,7 @@ public class ProductDao implements Dao<Product, String> {
     public List<Product> search(String value) {
         List<Product>result = new ArrayList<>();
         for (Product product : productRepository){
-            if (product.getName().contains(value)){
+            if (product.getName().toLowerCase().contains(value.toLowerCase())) {
                 result.add(product);
             }
         }

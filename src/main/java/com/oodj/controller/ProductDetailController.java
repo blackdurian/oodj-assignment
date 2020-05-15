@@ -9,10 +9,10 @@ import com.oodj.view.MenuItem;
 import java.util.Scanner;
 
 public class ProductDetailController {
-private Product product;
-private ProductDao productDao = new ProductDao();
-private Scanner sc = new Scanner(System.in);
-private String  successMessage = " Success!";
+    private Product product;
+    private final ProductDao productDao = new ProductDao();
+    private final Scanner sc = new Scanner(System.in);
+    private final String successMessage = " Success!";
 
     public ProductDetailController(Product product) {
         this.product = product;
@@ -21,7 +21,7 @@ private String  successMessage = " Success!";
         Menu.getInstance().setTopMessage(getProductDetail());
         if (Application.user instanceof Admin) {
             Menu.getInstance().addItem(new MenuItem("Edit Name"
-                    , new String[]{"edit name","update name"}
+                    , new String[]{"edit name", "update name"}
                     , this::editName));
 
             Menu.getInstance().addItem(new MenuItem("Edit Price"

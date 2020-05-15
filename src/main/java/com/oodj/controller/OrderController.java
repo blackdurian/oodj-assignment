@@ -25,38 +25,32 @@ public class OrderController {
         if (user.getClass() == Admin.class) {
             Menu.getInstance().addItem(new MenuItem("Search"
                     , new String[]{"s", "search"}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-                    System.out.println("Search :");
-                    String searchText = sc.nextLine();
-                    if (!searchText.trim().isEmpty()) {
-                        List<Order> orders = orderDao.search(searchText);
-                        if (orders.size() > 0) {
-                            new OrderSearchController(orders);
-                        } else {
-                            System.out.printf("Your Search - %s - did not match any orders%n",
-                                    searchText);
-                            Menu.getInstance().display();
-                        }
+                    , () -> {
+                System.out.println("Search :");
+                String searchText = sc.nextLine();
+                if (!searchText.trim().isEmpty()) {
+                    List<Order> orders = orderDao.search(searchText);
+                    if (orders.size() > 0) {
+                        new OrderSearchController(orders);
                     } else {
+                        System.out.printf("Your Search - %s - did not match any orders%n",
+                                searchText);
                         Menu.getInstance().display();
                     }
+                } else {
+                    Menu.getInstance().display();
                 }
             }));
 
             Menu.getInstance().addItem(new MenuItem("View All Orders"
                     , new String[]{"view all", "view all orders"}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-                    List<Order> orders = orderDao.findAll();
-                    if (orders.size() > 0) {
-                        new OrderSearchController(orders);
-                    } else {
-                        System.out.println("No order.");
-                        Menu.getInstance().display();
-                    }
+                    , () -> {
+                List<Order> orders = orderDao.findAll();
+                if (orders.size() > 0) {
+                    new OrderSearchController(orders);
+                } else {
+                    System.out.println("No order.");
+                    Menu.getInstance().display();
                 }
             }));
         }
@@ -64,23 +58,20 @@ public class OrderController {
         if (user.getClass() == Customer.class) {
             Menu.getInstance().addItem(new MenuItem("Search"
                     , new String[]{"s", "search"}
-                    , new MenuEvent() {
-                @Override
-                public void execute() {
-                    System.out.println("Search :");
-                    String searchText = sc.nextLine();
-                    if (!searchText.trim().isEmpty()) {
-                        List<Order> orders = orderDao.search(searchText, user.getId());
-                        if (orders.size() > 0) {
-                            new OrderSearchController(orders);
-                        } else {
-                            System.out.printf("Your Search - %s - did not match any orders%n",
-                                    searchText);
-                            Menu.getInstance().display();
-                        }
+                    , () -> {
+                System.out.println("Search :");
+                String searchText = sc.nextLine();
+                if (!searchText.trim().isEmpty()) {
+                    List<Order> orders = orderDao.search(searchText, user.getId());
+                    if (orders.size() > 0) {
+                        new OrderSearchController(orders);
                     } else {
+                        System.out.printf("Your Search - %s - did not match any orders%n",
+                                searchText);
                         Menu.getInstance().display();
                     }
+                } else {
+                    Menu.getInstance().display();
                 }
             }));
 

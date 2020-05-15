@@ -6,7 +6,6 @@ public class MenuItem {
     private String[] keys;
     private MenuEvent menuEvent;
 
-
     public MenuItem(String name, String[] keys, MenuEvent event) {
         this.name = name;
         this.keys = keys;
